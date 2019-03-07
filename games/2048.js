@@ -1,19 +1,26 @@
-a=[Array(4),Array(4),Array(4),Array(4)] //empty array
-a[0][0]=4
-a[0][2]=1
+a=[
+	Array(4).fill(0),
+	Array(4).fill(0),
+	Array(4).fill(0),
+	Array(4).fill(0)
+] //empty array
+
+a[0][0]="f"
+a[0][2]="a"
 
 c=(a,n)=>{ //compresses a single row
 	a=a.filter(e=>e) //removes undefines
 	for (i=1;i<a.length;i++) {
-		if(a[i]==a[i-1]) { //if 2 are touching
+		if (a[i]==a[i-1]) { //if 2 are touching
 			a[i]++ //add 1
 			a.splice(i-1,1) //remove old one
 		}
 	}
-	if (n)a.reverse()
+	if (n) {
+		a.reverse()
+	}
 	return [...Array((4-a.length)*n),...a,...Array((4-a.length)*!n)] //pad result depending on swipe
 }
-c(a,0)
 
 document.body.innerHTML="<canvas id='c' width=512 height=512>" //insert canvas
 s=document.getElementById("c").getContext("2d") //screen
@@ -31,8 +38,6 @@ document.body.onkeydown=e=>{
 
 	f(0,0,512,512,"fff")
 	l=0
-	a.forEach((e,i)=>a[i].forEach((e,j)=>a[i][j]=e?e:0))
-	console.log(a)
 	
 	for(i in a) {
 		for (j in a[i]) {
