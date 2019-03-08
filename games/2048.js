@@ -7,7 +7,8 @@ a=[
 
 a[0][0]=1
 a[0][1]=1
-a[0][2]=2
+a[1][3]=2
+a[0][2]=2 //test
 
 c=(a,n)=>{ //compresses a single row
 	a=a.filter(e=>e) //removes undefines
@@ -17,10 +18,7 @@ c=(a,n)=>{ //compresses a single row
 			a.splice(i-1,1) //remove old one
 		}
 	}
-	if (n) {
-		//a.reverse()
-	}
-	return [...Array((4-a.length)*n).fill(0),...a,...Array((4-a.length)*!n).fill(0)] //pad result depending on swipe
+	return [...Array((4-a.length)*n).fill(0),...a,...Array((4-a.length)*!n).fill(0)] //pad result depending on side
 }
 
 document.body.innerHTML="<canvas id='c' width=256 height=256>" //insert canvas
@@ -37,23 +35,32 @@ f=(x, y, w, h, c)=>{ //draw using pixel size
 document.body.onkeydown=e=>{
 	k=e.key
 
-	f(0,0,256,256,"f00")
+	f(0,0,256,256,"fff")
 	l=0
+	for (i in a) {
+		for (j in a[i]) {
+			if (j>l)l=j //gets highest color on board
+		}
+	}
 
-	if (k=="a") {
+	if (k=="a"||k=="d") {
 		a.forEach((e,i)=>{
-			a[i]=c(a[i],0)
+			a[i]=c(a[i],k=="d")
 		})
 	}
-	else if (k=="d") {
+	else if (k=="w"||k=="s") {
 		a.forEach((e,i)=>{
-			a[i]=c(a[i],1)
+			tmp=a.map(x=>x[i])
+			tmp=c(tmp,k=="s")
+			for (j in tmp) {
+				a[j][i]=tmp[j]
+			}
 		})
 	}
 	
 	for(i in a) {
 		for (j in a[i]) {
-			s.fillStyle="#"+a[j][i]+a[j][i]+a[j][i]
+			s.fillStyle="hsl(200,100%,"+((a[j][i]+1)/(l+1))*100+"%)"
 			s.fillRect(i*64,j*64,64,64)
 		}
 	}
