@@ -23,7 +23,7 @@ n=r=>{return ~~(Math.random()*r)} //new pos
 
 r=(x, y, c)=>f(x*64, y*64, 64, 64,c) //draw using block size
 f=(x, y, w, h, c)=>{ //draw using pixel size
-	s.fillStyle="#"+c
+	s.fillStyle=c
 	s.fillRect(x, y, w, h)
 }
 
@@ -48,7 +48,6 @@ W=87 A=65 S=83 D=68
 document.body.onkeydown=e=>{
 	k=e.key
 
-	g()
 	l=0
 	for (i in a) {
 		for (j in a[i]) {
@@ -73,8 +72,8 @@ document.body.onkeydown=e=>{
 	
 	for(i in a) {
 		for (j in a[i]) {
-			s.fillStyle="hsl(200,100%,"+((a[j][i]+1)/(l+1))*100+"%)"
-			s.fillRect(i*64,j*64,64,64)
+			f(i*64,j*64,64,64,"hsl(200,100%,"+(a[j][i]==0?100:a[j][i]*5)+"%)")
 		}
 	}
+	g()
 }
