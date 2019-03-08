@@ -5,11 +5,6 @@ a=[
 	Array(4).fill(0)
 ] //empty array
 
-a[0][0]=1
-a[0][1]=1
-a[1][3]=2
-a[0][2]=2 //test
-
 c=(a,n)=>{ //compresses a single row
 	a=a.filter(e=>e) //removes undefines
 	for (i=1;i<a.length;i++) {
@@ -32,10 +27,28 @@ f=(x, y, w, h, c)=>{ //draw using pixel size
 	s.fillRect(x, y, w, h)
 }
 
+g=()=>{ //generates new block
+	i=n(4)
+	j=n(4)
+	if (a[i][j]!=0) {
+		g() //if block is set, re gen
+	}
+	else {
+		a[i][j]=n(2) //generate a 0 or 1 block
+	}
+}
+
+z=0 //stores what keys have been pressed (adding later)
+/*
+W=87 A=65 S=83 D=68
+ =22  =0   =4   =19
+
+2<<22|2<<0|2<<4|2<<19=
+*/
 document.body.onkeydown=e=>{
 	k=e.key
 
-	f(0,0,256,256,"fff")
+	g()
 	l=0
 	for (i in a) {
 		for (j in a[i]) {
