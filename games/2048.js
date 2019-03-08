@@ -5,8 +5,9 @@ a=[
 	Array(4).fill(0)
 ] //empty array
 
-a[0][0]="f"
-a[0][2]="a"
+a[0][0]=1
+a[0][1]=1
+a[0][2]=2
 
 c=(a,n)=>{ //compresses a single row
 	a=a.filter(e=>e) //removes undefines
@@ -17,12 +18,12 @@ c=(a,n)=>{ //compresses a single row
 		}
 	}
 	if (n) {
-		a.reverse()
+		//a.reverse()
 	}
-	return [...Array((4-a.length)*n),...a,...Array((4-a.length)*!n)] //pad result depending on swipe
+	return [...Array((4-a.length)*n).fill(0),...a,...Array((4-a.length)*!n).fill(0)] //pad result depending on swipe
 }
 
-document.body.innerHTML="<canvas id='c' width=512 height=512>" //insert canvas
+document.body.innerHTML="<canvas id='c' width=256 height=256>" //insert canvas
 s=document.getElementById("c").getContext("2d") //screen
 
 n=r=>{return ~~(Math.random()*r)} //new pos
@@ -36,8 +37,19 @@ f=(x, y, w, h, c)=>{ //draw using pixel size
 document.body.onkeydown=e=>{
 	k=e.key
 
-	f(0,0,512,512,"fff")
+	f(0,0,256,256,"f00")
 	l=0
+
+	if (k=="a") {
+		a.forEach((e,i)=>{
+			a[i]=c(a[i],0)
+		})
+	}
+	else if (k=="d") {
+		a.forEach((e,i)=>{
+			a[i]=c(a[i],1)
+		})
+	}
 	
 	for(i in a) {
 		for (j in a[i]) {
