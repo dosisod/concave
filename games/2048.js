@@ -38,27 +38,16 @@ g=()=>{ //generates new block
 	}
 }
 
-z=0 //stores what keys have been pressed (adding later)
-/*
-W=87 A=65 S=83 D=68
- =22  =0   =4   =19
-
-2<<22|2<<0|2<<4|2<<19=
-*/
-document.body.onkeydown=e=>{
+p=""
+l=0
+document.onkeydown=e=>{
 	k=e.key
-
-	l=0
-	for (i in a) {
-		for (j in a[i]) {
-			if (j>l)l=j //gets highest color on board
-		}
-	}
 
 	if (k=="a"||k=="d") {
 		a.forEach((e,i)=>{
 			a[i]=c(a[i],k=="d")
 		})
+		l|=2<<(k.charCodeAt()-97)
 	}
 	else if (k=="w"||k=="s") {
 		a.forEach((e,i)=>{
@@ -68,12 +57,30 @@ document.body.onkeydown=e=>{
 				a[j][i]=tmp[j]
 			}
 		})
+		l|=2<<(k.charCodeAt()-97)
+	}
+	else {
+		return //dont keep going if WASD wasnt presed
+	}
+
+	if (p==JSON.stringify(a)) {
+		if (l==8912914) {
+			alert("Game Over")
+			a.forEach((e,i)=>{
+				a[i]=new Array(4).fill(0)
+			})
+		}
+	}
+	else {
+		p=JSON.stringify(a)
+		l=0
+		g()
 	}
 	
 	for(i in a) {
 		for (j in a[i]) {
-			f(i*64,j*64,64,64,"hsl(200,100%,"+(a[j][i]==0?100:a[j][i]*5)+"%)")
+			s.fillStyle="hsl(200,100%,"+(a[j][i]==0?100:a[j][i]*5)+"%)"
+			s.fillRect(i*64,j*64,64,64)
 		}
 	}
-	g()
 }
