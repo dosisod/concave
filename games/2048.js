@@ -1,9 +1,4 @@
-a=[
-	Array(4).fill(0),
-	Array(4).fill(0),
-	Array(4).fill(0),
-	Array(4).fill(0)
-] //empty array
+a=[[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
 
 c=(a,n)=>{ //compresses a single row
 	a=a.filter(e=>e) //removes undefines
@@ -40,6 +35,7 @@ g=()=>{ //generates new block
 
 p=""
 l=0
+d=1
 document.onkeydown=e=>{
 	k=e.key
 
@@ -66,9 +62,7 @@ document.onkeydown=e=>{
 	if (p==JSON.stringify(a)) {
 		if (l==8912914) {
 			alert("Game Over")
-			a.forEach((e,i)=>{
-				a[i]=new Array(4).fill(0)
-			})
+			a=[[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
 		}
 	}
 	else {
@@ -81,6 +75,10 @@ document.onkeydown=e=>{
 		for (j in a[i]) {
 			s.fillStyle="hsl(200,100%,"+(a[j][i]==0?100:a[j][i]*5)+"%)"
 			s.fillRect(i*64,j*64,64,64)
+			if (a[j][i]==10&&d) { //2^(10+1)=2048
+				alert("You Win!")
+				d=0 //dont show this again
+			}
 		}
 	}
 }
