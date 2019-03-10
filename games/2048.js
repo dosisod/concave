@@ -16,12 +16,6 @@ s=document.getElementById("c").getContext("2d") //screen
 
 n=r=>{return ~~(Math.random()*r)} //new pos
 
-r=(x, y, c)=>f(x*64, y*64, 64, 64,c) //draw using block size
-f=(x, y, w, h, c)=>{ //draw using pixel size
-	s.fillStyle=c
-	s.fillRect(x, y, w, h)
-}
-
 g=()=>{ //generates new block
 	i=n(4)
 	j=n(4)
@@ -33,8 +27,7 @@ g=()=>{ //generates new block
 	}
 }
 
-p=""
-l=0
+p=l=0
 d=1
 document.onkeydown=e=>{
 	k=e.key
@@ -63,6 +56,7 @@ document.onkeydown=e=>{
 		if (l==8912914) {
 			alert("Game Over")
 			a=[[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
+			p=0
 		}
 	}
 	else {
