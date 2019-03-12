@@ -14,3 +14,9 @@ Done!
 Note:
 
 It is recommended that you save this game elsewhere for safe-keeping (eg google docs)
+
+Note:
+
+All `.min.js` file extensions are minified, and not meant to be read
+
+All other `.js` extensions are readable and commented
