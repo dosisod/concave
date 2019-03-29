@@ -6,7 +6,7 @@ u=(x, y)=>{
 	t.unshift([t[0][0]+x,t[0][1]+y]) //u => unshift head by X and Y
 }
 
-n=()=>{return ~~(Math.random()*8)} //new fruit pos
+n=()=>{return ~~(Math.random()*16)} //new fruit pos
 
 document.body.onkeydown=e=>{
 	if((l=="w"&&e.key=="s")||(l=="s"&&e.key=="w")||(l=="a"&&e.key=="d")||(l=="d"&&e.key=="a"))return //if player goes in opposite direction, ignore
