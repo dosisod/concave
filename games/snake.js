@@ -1,11 +1,17 @@
 document.body.innerHTML="<canvas id='c' width=512 height=512>" //insert canvas
 s=document.getElementById("c").getContext("2d") //screen
 
-u=(x, y)=>t.unshift([t[0][0]+x,t[0][1]+y]) //u => unshift head by X and Y
+u=(x, y)=>{
+	l=k //update last known character if it is valid
+	t.unshift([t[0][0]+x,t[0][1]+y]) //u => unshift head by X and Y
+}
 
 n=()=>{return ~~(Math.random()*8)} //new fruit pos
 
-document.body.onkeydown=e=>k=e.key //sets key on keydown
+document.body.onkeydown=e=>{
+	if((l=="w"&&e.key=="s")||(l=="s"&&e.key=="w")||(l=="a"&&e.key=="d")||(l=="d"&&e.key=="a"))return //if player goes in opposite direction, ignore
+	k=e.key //sets key on keydown
+}
 
 r=(x, y, c)=>f(x*32, y*32, 32, 32,c) //draw using block size
 f=(x, y, w, h, c)=>{ //draw using pixel size
@@ -21,7 +27,7 @@ g=()=>{ //generate new fruit pos if inside snake body
 			g() //run itself again
 }
 
-x=y=p=k=0 //sets fruit pos, key etc
+x=y=p=k=l=0 //sets fruit pos, key etc
 j=250 //starting time interval
 t=[[9,9]] //head start
 m=()=>{ //main
